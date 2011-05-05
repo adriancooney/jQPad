@@ -1,0 +1,18 @@
+
+
+.notify {
+	position: absolute;
+	z-index: 1500; /* So none of you bithes be taken my place */
+	height: 40px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FF0000), color-stop(100%,#E50000)); /* webkit */
+	border-top: 1px solid #d40001;
+	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.6), 0 0 4px rgba(0,0,0,0.1);
+}
+
+.notify h1 {
+	text-align: center;
+	font-size: 22px;
+	color: #fff;
+	text-shadow: 0 1px 0 #d40001;
+	margin-top: 6px;
+}

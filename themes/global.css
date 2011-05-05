@@ -1,0 +1,232 @@
+* {
+	outline: none;
+	list-style: none;
+	text-decoration: none;
+	margin: 0;
+	padding: 0;
+	}
+
+/***************** Toolbar *****************/
+.toolbar {
+	position: relative;
+	z-index: 5;
+	}
+
+	
+
+
+/***************** Both sides *****************/	
+.content-left .content-main, .content-right .content-main {
+	display: inline;
+	float: left;
+	height: inherit;
+	width: inherit;
+	}
+
+
+/***************** Content-left *****************/
+.content-left {
+	float: left;
+	position: relative;
+	z-index: 5;
+	}
+
+.content-left .content-main .nav li {
+	height: 46px;
+	width: inherit;
+	padding-top: 19px;
+	}
+	
+.content-left .content-main .nav li:first-child {
+	border-top: none;
+}	
+	
+.content-left .content-main .nav li:last-child {
+	border-bottom: none;
+}
+	
+.content-left .content-main .nav li h2 {
+	letter-spacing: 0px;
+	font-size: 22px;
+	padding-left: 60px;
+     white-space: nowrap;
+	}
+	
+.content-left .content-main .nav li img {
+	float: left;
+	height: 30px;
+	width: 30px;
+	padding: 0 15px;
+	}
+	
+
+
+/***************** Content right *****************/
+.scroll-wrapper {
+	position:relative;
+	z-index:1;
+	overflow: hidden;
+	}
+	
+.content-right {
+	float: right;
+	position: relative;
+	z-index: 4;
+	}
+
+
+
+/***************** Content Styling *****************/
+
+.loading {
+	position: absolute;
+	z-index: 8;
+	margin-top: 300px;
+	left: 62%;
+	display: none;
+	padding-top: 38px;
+	}
+
+.heading1, .XL {
+	padding: 10px 0 0 0;
+	}
+	
+.info {
+	padding: 5px 0;
+	text-align: center;
+	}
+.list {
+	width: 408px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 25px;
+	}
+	
+.list .single-item li {
+	height: 45px;
+	margin-bottom: 15px;
+	margin-top: 15px;
+	}
+	
+.list .rounded-list {
+	margin-bottom: 15px;
+	margin-top: 15px;
+	}
+
+.list .rounded-list li {
+	height: 45px;
+	}
+	
+.list .rounded-list li:last-child {
+	border-bottom: hidden;
+	}
+	
+.list .rounded-list li h3, .list .single-item li h3 {
+	padding-top: 11px;
+	margin-left: 15px;
+	}
+	
+.list .rounded-list li span, .list .single-item span {
+	float: right;
+	margin-top: -19px;
+	padding-right: 30px;
+	}
+	
+/* Tried to use same selectors from jQTouch. */
+
+.edgetoedge li {
+	width: inherit;
+	height:70px;
+	}
+
+.edgetoedge li h3 {
+	padding-top: 16px;
+	margin-left: 20px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+     white-space: nowrap;
+	}
+	
+.edgetoedge li p {
+	margin-left: 20px;
+	}
+	
+.edgetoedge li .note {
+	margin-left: 20px;
+	}
+	
+.center {
+	text-align: center;
+	}
+
+	
+/***************** Elements *****************/
+
+.listnumber, .notification {
+	margin-top: 14px;
+	margin-left: 15px;
+	margin-right: 15px;
+	padding: 4px;
+	min-width: 16px;
+	text-align: center;
+	position: relative;
+	}
+	
+.listnumber{
+	float: left;
+	}
+	
+.notification {
+	float: right;
+	}
+	
+.deletebutton {
+	text-indent: -9999px;
+	height: 32px;
+	width: 72px;
+	position: relative;
+	float: right;
+	margin-top: 14px;
+	margin-right: -80px;
+	margin-top: -20px;
+	}
+	
+.close {	
+	text-indent: -9999px;
+	height: 19px;
+	width: 19px;
+	float: right;
+	margin-right: 2px;
+	margin-top: 2px;
+	}
+
+.panel {
+	padding-left: 15px;
+	}
+	
+.backbutton {
+	float: left;
+	margin-top: 14px;
+	margin-left: 6px;
+	text-indent: -9999px;
+	}
+
+
+/***************** Bugs *****************/
+.space {
+	width: inherit;
+	height: 60px;
+	background: transparent;
+	}
+	
+/***************** Inputs *****************/
+
+input[type=text], input[type=password] {
+	margin: 6px;
+	}
+	
+input[type=submit] {
+	margin: 8px;
+	}
+
+

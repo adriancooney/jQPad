@@ -1,0 +1,13 @@
+.subList {
+	width: inherit;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.35);
+}
+
+.subList li {
+	text-indent: 24px;
+	height: 18px !important;
+	width: inherit !important;
+	padding: 5px 0 4px 0 !important;
+	font-size: 14px;
+	background: rgba(0,0,0,0.1);
+}

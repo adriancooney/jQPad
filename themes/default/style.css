@@ -1,0 +1,221 @@
+* {
+	font-family: Helvetica, Arial, Verdana;
+	}
+	
+body {
+	background: #000;
+	}
+		
+/***************** Tollbar *****************/
+.toolbar {
+	height: 50px;
+	border-bottom: 1px solid #797F90;
+	text-align: center;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	background: #B1B5C1;
+	background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #A8ACB9),color-stop(1, #ffffff));
+	}
+	
+.toolbar h1 {
+	text-shadow: 0px 1px 0px white;
+	padding-top: 12px;
+	font-size: 30px;
+	height: 24px;
+	color: #76787c;
+	}
+	
+.toolbar h1 a {
+	color: inherit;
+}
+	
+/***************** @END *****************/
+
+/***************** Both sides *****************/	
+.content-left .content-main, .content-right .content-main {
+	background: #E0E2E6;
+	}
+/***************** @END *****************/
+
+/***************** Content-left *****************/
+
+.content-left .content-main .nav li {
+	border-top: 1px solid #C2C6CF;
+	border-bottom: 1px solid #eaecef;
+	}
+	
+.content-left .content-main .nav li h2 {
+	text-shadow: 0px 1px 0px white;
+	letter-spacing: 0px;
+	font-size: 22px;
+	}
+
+.content-left .content-main .nav li h2 a {	
+	color: #000;
+	}
+	
+.content-left .content-main .nav li img {
+	height: 30px;
+	width: 30px;
+	}
+	
+.tapped {
+	background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #058CF5),color-stop(1, #015DE6));
+	}
+	
+/***************** @END *****************/
+
+/***************** Content right *****************/
+.content-right {
+	/* border-left: 1px solid #969696; */
+	}
+
+/***************** @END *****************/
+
+/***************** Content Styling *****************/
+
+.loading {
+	text-shadow: 0px 1px 0px white;
+	background: url(images/loading.gif) no-repeat center top;
+	height: 50px;
+	width: 60px;
+	color: #707070;
+	}
+
+.heading1 {
+	text-shadow: 0px 1px 0px white;
+	color: #7c7c7c;
+	font-size: 20px;
+	}
+	
+.XL {
+	text-shadow: 0px 1px 0px white;
+	color: #000;
+	font-size: 32px;
+	}
+.info {
+	color: #5b5b5b;
+	font-size: 12px;
+	text-shadow: 0px 1px 0 #fff;
+	}
+	
+.list a {
+	color: #000;
+	}
+	
+.list .single-item li {
+	height: 45px;
+	-webkit-border-radius: 12px;
+	background: #fff url(images/arrow-list.png) no-repeat right center;
+	border: 1px solid #bababa;
+	-webkit-box-shadow: 0px 1px #FFF;
+	}
+	
+.list .rounded-list {
+	background: #fff;
+	border: 1px solid #bababa;
+	-webkit-box-shadow: 0px 1px #FFF;
+	-webkit-border-radius: 12px;
+	}
+
+.list .rounded-list li {
+	height: 45px;
+	border-bottom: 1px solid #bababa;
+	background: url(images/arrow-list.png) no-repeat right center;
+	}
+	
+.list .rounded-list li h3, .list .single-item li h3 {
+	color #fff;
+	}
+	
+.list .rounded-list li span, .list .single-item span {
+	text-shadow: 0px 1px 0px #f3f3f3;
+	color: #a6a6a6;
+	}
+	
+/* Tried to use same selectors from jQTouch. */
+
+.edgetoedge li {
+	border-bottom: 1px solid #AFAFAF;
+	border-top: 1px solid #000000;
+	background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #0F0F0F),color-stop(1, #2F2F2F));
+	-webkit-box-shadow: 0 0 4px #000;
+	}
+
+.edgetoedge li h3 {
+	color: #fff;
+	}
+	
+.edgetoedge li h3 a {
+	color: #fff;
+	}
+	
+.edgetoedge li .note {
+	color: #dadada;
+	}
+	
+/***************** Elements *****************/
+.listnumber, .notification, .new {
+	font-weight: bold;
+	background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #DF0000),color-stop(1, #FF0000));
+	-webkit-box-shadow: 0 0 4px rgba(255,255,255, 0.4);
+	-webkit-border-radius: 7px;
+	color: #fff;
+	}
+	
+.new {
+	font-size: 10px;
+	padding: 2px;
+	text-shadow: 0 1px 0 #333;
+	}
+	
+.deletebutton {	
+	background: url(images/delete-icon.png) no-repeat center top;
+	}
+	
+.close {	
+	background: url(images/close.png) no-repeat center top;
+	}
+
+.panel {
+	background-color: #222222;
+	}
+	
+.backbutton {
+	background: url(images/back.png) no-repeat center top;
+	width: 65px;
+	height: 32px;
+	}
+	
+/***************** Inputs *****************/
+
+input[type=text], input[type=password] {
+	width: 200px;
+	height: 30px;
+	font-size: 22px;
+	color: #c9c9c9;
+	}
+	
+input[type=submit] {
+	height: 30px;
+	width: 130px;
+	font-size: 20px;
+	color: #4f4f4f;
+	text-shadow: 0 1px 0 #cecece;
+	border: 1px solid #7d7d7d;
+	background: #fff;
+	}
+	
+.inputactive {
+	color: #000;
+	}
+ 
+.highlight {
+	background-color: #000;
+	}
+	
+/***************** @END *****************/

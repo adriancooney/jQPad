@@ -1,0 +1,34 @@
+/***************** ShareBubble *****************/
+	
+.share-bubble-wrapper {
+	height: 70px;
+	width: 191px;
+	position: absolute;
+	z-index: 10;
+	margin-top: -8px;
+	opacity: 0;
+}
+
+.bubble-share {
+	/* Half the width of the element */
+	margin-left: -102px;
+	-webkit-border-image: url(images/hover-bubble.png) 10 stretch;
+	border: 6px;
+	height: inherit;
+	width: inherit;
+}
+
+.bubble-share li {
+	display: inline;
+	float: left;
+	height: 67px;
+	width: 54px;
+	margin: 7px 3px 3px 3px;
+}
+
+.top-arrow {
+	height: 17px;
+	width: 34px;
+	background: url(images/top-arrow.png) no-repeat;
+	margin: -21px auto 0 auto;
+}

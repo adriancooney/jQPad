@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>jQPad Read-me</title>
+</head>
+<style type="text/css">
+* {text-decoration: none;list-style: none;}body {background: #ededed;margin: 0;font-family: "Helvetica Neue", Helvetica, "Zapf Chancery", Verdana, Arial, sans-serif;}.wrapper {padding: 8px 20px;-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;-webkit-box-shadow: 0 0 35px rgba(0,0,0,0.1);-moz-box-shadow: 0 0 35px rgba(0,0,0,0.1);box-shadow: 0 0 35px rgba(0,0,0,0.1);width: 850px;margin-left: auto;margin-right: auto;border: 1px solid #9c9c9c;background: #e3e3e3;position: relative;z-index: 5;}h6 {position: fixed;margin-top: -200px;z-index: 1;font-size: 235px;color: rgba(0,0,0,0.05);font-variant: small-caps;}h2, h3 {text-align: left;font-size: 24px;text-shadow: 0 1px 0 #fff;color: #000;}h1 {text-align: center;font-size: 32px;text-shadow: 0 3px 3px rgba(0,0,0,0.4);}h4 {text-align: right;font-size: 36px;font-variant: small-caps;color: rgba(0,0,0,0.2);margin: 0;-webkit-text-stroke: 1px #5b5b5b;-moz-text-stroke: 1px #5b5b5b;}h5 {font-size: 21px;text-decoration: underline;margin: 0;font-style: underline;}p {text-shadow: 0 1px 0 #fff;}.code {font-family: monospace;text-shadow: none;font-size: 14px;padding: 8px;background: #f8f8f8;border: 1px dotted #5b5b5b;color: #5b5b5b;}.example {text-shadow: none;color: #767676;text-shadow: 0 0 4px rgba(255,255,255,1);}.console {letter-spacing: -1px;font-family: monospace;color: rgba(0,0,0,0.8);font-size: 18px;text-shadow: none;font-variant: normal;}.red { color: #ff555a; }strong {font-weight: normal;font-style: italic;}.note {font-variant: small-caps;padding: 20px;background-color: #f8faba;border: 1px dotted #5b5b5b;color: #444444;-moz-box-shadow:0 2px 3px rgba(0,0,0,0.4);-webkit-box-shadow:0 2px 3px rgba(0,0,0,0.4);box-shadow:0 2px 3px rgba(0,0,0,0.4);}.noteWord {color: #9a9700;}.comment {color: #2e7e35;}.signoff {text-align: right;border-bottom: 1px dotted #5b5b5b;padding-bottom: 10px;}.more {color: #bebebe;font-size: 20px;text-align: center;}.footer {text-align: center;color: #bebebe;}a { color: #2266ab;}	</style>
+<body>
+<h1>jQPad</h1>
+<h6>read me</h6>
+<div class="wrapper">
+<h2>An iPad web development framework</h2>
+<h3>Usage</h3>
+<p>Usage of this framework is just editing the <span class="console">index.html</span> and other aspects of the already created template and sort-of demo. In more releases to come, it will be widely customizable!</p>
+<h3>FAQ</h3>
+<h4>Basic</h4>
+<p>These a jQPad's optional parameters.</p>
+<p class="code">
+$.jQPad({<br>
+siteName: "jQPad",<br>
+defaultHomeTitle: "Home",<br>
+defaultPage: "content/default/",<br>
+ajax: {<br>
+cache: true,<br>
+defaultNavMethod: true<br>
+},<br>
+splash: "misc/jqpad-splash.png",<br>
+icon: "misc/jqpad-icon.png",<br>
+statusbarColor: "white"<br>
+});<br>
+</p>
+<h5>Site Name</h5>
+<p>Site name is, obviously, the site's name.</p>
+<h5>Default Home Title</h5>
+<p>This is the title of the default page when the site loads.</p>
+<h5>Default Page</h5>
+<p>This is the url location of the default page to be loaded on site load. Usually in <span class="console">default/</span>.</p>
+<h5>Bookmark icon</h5>
+<p>The URL for the homepage icon.</p>
+<h5>Splash</h5>
+<p>The splashscreen is the 'loading' screen when the user adds the site to their homescreen.</p>
+<h5>StatusBar color</h5>
+<p>The color of the status bar, either <span class="console">black</span> or <span class="console">white</span>.</p>
+<h4>The AJAX.</h4>
+<p>The jQPad works by taking data from each link and options specified and displaying it accordingly. Its several types of attributes are the placeholders for its 'link data'.</p>
+<span class="example">Example:</span><br>
+<p class="code">
+&lt;a href="#general/" title="General Settings" data-call="type=4&amp;awesome=true">General&lt;/a>
+</p>
+<h5><span class="console">href</span> attribute</h5>
+<p class="code">
+&lt;a <span class="red">href="#general/"</span> title="General Settings" data-call="type=4&amp;awesome=true">General&lt;/a>
+</p>
+<p><strong>Every</strong> link within the framework has to start with a hash tag(#) unless the link is to make the page navigate away from the site. The data after the hash tag(#) is the location for the AJAX to load the content. You <strong>need</strong> to store your content in the <span class="console">content/</span> directory. You can also add data to the end for GET'ting by PHP e.g '<span class="console">#general/index.php?type=4&awesome=true</span>'</p>
+<p class="note"><span class="noteWord">NOTE:</span><br>you do <strong>not</strong> to include <span class="console">content/</span> when specifying the location to load the content. it automatically adds that for you.</p>
+<h5><span class="console">title</span> attribute</h5>
+<p class="code">
+&lt;a href="#general/" <span class="red">title="General Settings"</span> data-call="type=4&amp;awesome=true" >General&lt;/a>
+</p>
+<p>The <span class="console">title</span> attribute is the data that the AJAX takes and uses to display the title above each page in the toolbar. There is no specifications for this attribute, only that you include it in each link.</p>
+<h5><span class="console">data-call</span> attribute</h5>
+<p class="code">
+&lt;a href="#general/" title="General Settings" <span class="red">data-call="type=4&amp;awesome=true"</span> >General&lt;/a>
+</p>
+<p>The <span class="console">data-call</span> is for POST'ing data via an AJAX call. jQuery manipulates it for parsing later on by PHP or Javascript etc.</p><br>
+<h4>Features</h4>
+
+<h5>Share content</h5>
+<p>In today's world, sharing is imperative for success, with jQPad, it becomes a breeze to add your page to Digg or Twitter by just adding <span class="console">#share</span> in the href attribute of a link. When clicked, a sleek share bubble pops under your "Share Me!" link.</p>
+<p class="code">&lt;a href="<span class="red">#share</span>">Click me to share!&lt;/a></p>
+<h5>Make lists deletable</h5>
+<p>The iPad's swipe to delete is now very easily do-able with a simple jQPad function! To make lists 'deletable', you add <span class="console">.deletable();</span> to your list.</p>
+<span class="example">Example:</span><br>
+<p class="code">$("li").deletable(function() { <span class="comment">/* Delete from database */</span>});</p>
+<h5>Panels</h5>
+<p>It opens a panel anywhere on the site, all you have to do is direct it to it! It will show it, expand it and automatically add a close button, handy eh? To use, add the panel id after <span class="console">#panel-</span>.</p>
+<span class="example">Example:</span><br>
+<p class="code">&lt;a href="#Foobar" data-target="#panel-<span class="red">PANELID</span>">Open My panel!&lt;/a></p>
+<h5>To number lists.</h5>
+<p>To number lists with a customizable bubble beside each list item is also possible via a simple jQPad function, <span class="console">.numbered()</span><br><br>
+<span class="example">Example:</span><br>
+<p class="code">$("li").numbered();</p>
+<p class="note"><span class="noteWord">NOTE:</span><br>you <strong>cannot</strong> use both on the same list. its is a known bug and would only make things slow.</p>
+<p class="more">More coming soon!</p>
+<h4>Themes.</h4>
+<p>jQPad is easily themeable. The easiest way is just duplicate the default and modify it, I will later be adding docs' for theming such as classes and CSS3 specifications. Remember, you only need to add <strong>webkit extensions</strong>! To start of, the user who creates the best theme will be packaged as the default in the next release! <a href="mailto:&#114;&#101;&#110;&#101;&#103;&#97;&#100;&#101;&#109;&#97;&#110;&#105;&#97;&#99;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">Send it to me</a> with your name, website and whatever other details!</p><br>
+<h4>Whats upcoming and known bugs</h4>
+<p>Head over to <a href="http://code.google.com/p/jqpad/">code.google.com/p/jqpad/</a> for upcoming features, news and known bugs. Also, if you want to report a bug, email it to <a href="mailto:jqpadframework@gmail.com?subject=OMG Bug! Fix me please, QUICK!">jqpadframework@gmail.com</a>. Thank you for your help!</p><br>
+<h4>About.</h4>
+<p>jQPad is a one man job! It was made by <a href="http://www.mivlox.com">Adrian Cooney</a> with the help of <a href="http://www.jquery.com">jQuery</a> and iSroll Plugin from the dudes over at <a href="http://cubiq.org/">Cubiq.org</a>. jQPad is released under the GPL (see <a href="license.txt">license.txt</a>). Thank you all and thank you for using jQPad.</p>
+<p class="signoff">&mdash; Adrian Cooney</p>
+<p class="footer">&copy; jQPad and Affiliates.</p>
+</div>
+</body>
+</html>
