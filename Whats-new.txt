@@ -1,3 +1,0 @@
-Whats new in this version of jQPad?
--Added Social intergration.
--Opens pages when linked.

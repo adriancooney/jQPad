@@ -1,5 +1,0 @@
--Fix jQPad.db.fn.CheckDB for a more accurate check for database
--Add ability to
-	add tables,
-	add data, 
-	remove data
