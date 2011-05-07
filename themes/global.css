@@ -73,6 +73,11 @@
 	position: relative;
 	z-index: 4;
 	}
+	
+.content-right .content-main {
+	display: inline !important;
+	float: left !important;
+}
 
 
 

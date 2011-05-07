@@ -18,7 +18,7 @@ jQPad.extend({
 			//Whats the point recreating the enviorment i.e get the dimensions, viewport
 			//to slide the element when I can do it 'natively'
 			
-			$($(this).data("panelToOpen")).slideDown(300, function() {
+			$($(this).attr("href")).slideDown(300, function() {
 				//the close button
 				var closeButton = $("<span class='close'>Close</span>");
 				//Add a close button

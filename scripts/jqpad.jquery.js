@@ -43,8 +43,17 @@ jQPad.extend({
 		//Get the themes 'theme.js' if it exists
 		jQPad.getThemeJS();
 		
-		//Load the default Page
-		jQPad.fetch({url: "content/default/", isElsewhere: true});
+		jQPad.createNewPage("Hello World!");
+		
+		//Handle direct linking to the site
+		console.log("location: " + jQPad.location.get(true));
+		
+		if(jQPad.location.get(true) == "") {
+			//Load the default Page
+			jQPad.fetch({url: "content/default/", isElsewhere: true});
+		} else {
+			jQPad.fetch({url: jQPad.location.get(true) });
+		}
 
 		/** Our main event, a click on the <a> or link
 		 ** Set up a switch, do what it wants us to do
@@ -64,7 +73,7 @@ jQPad.extend({
 		//Change the title
 		jQPad.toolbar.changeSubTitle(jQPad.meta("site-name"));
 		
-		//Bind our hashchange event
+		//Start logging history
 		jQPad.history.startLogging();
 		
 		//Resize the body on orientation change
@@ -93,11 +102,11 @@ jQPad.extend({
 		//Lastly, after all is loaded, Call our plugin enviornment Onload event
 		$(window).bind("pluginsLoaded", function() {
 			if(jQPad.events["onload"].length > 0) {
-				$.each(jQPad.events["onload"], function(i, v) {
+				$.each(jQPad.events["onload"], function(i, functions) {
 					try{
-						v.call(jQPad);
+						functions.call(jQPad);
 					} catch(e) {
-						jQPad.error("Trying to execute Onload functions -- " + e.description);
+						jQPad.error("Trying to execute Plugin Onload functions -- " + e.description);
 					}
 				});
 			}
@@ -311,48 +320,6 @@ jQPad.extend({
 		console.log(jQPad.errorLog);
 		return this;
 	},
-
-	/** Set cookies -- Set a cookies value, if none, will create it
-	 ** jQPad.createCookie( name, value )
-	 ** returns: jQPad
-	 **/
-	setCookie: function(name, value) {
-		document.cookie = name + "=" + value + ";expires=Thu, 2 Aug 2020 20:47:11 UTC; path=/";
-		return this;
-	},
-	
-	/** Get Cookie -- Returns the value of a cookie
-	 ** jQPad.getCookie( name )
-	 ** returns: jQPad
-	 **/
-	getCookie: function(name) {
-		if(document.cookie.length > 0) {
-			var cookie = document.cookie.indexOf(name + "=");
-			 if(cookie !== -1) {
-				cookie = cookie + name.length + 1;
-				var val = document.cookie.indexOf(";", cookie);
-				
-				if(val == -1) val = document.cookie.length;
-				return unescape(document.cookie.substring(cookie, val));
-			}
-		} else {
-			jQPad.error("Function: getCookie() -- There is no cookies :(");
-		}
-		return this;
-	},
-	
-	/** Delete cookie -- Do exactly what it says
-	 ** jQPad.delCookie( name )
-	 ** returns: jQPad
-	 **/
-	delCookie: function(name) {
-		if( Q.fn.getCookie( name ) ) {
-			document.cookie = name + "=;expires=Thu, 25-Dec-2000 00:00:01 GMT"; //Merry Christmas!
-		} else {
-			jQPad.error("Function: delCookie() -- Can't find cookie");
-		}
-		return this;
-	},
 	
 	/** Loading -- Display or hide the loading, true == show, false == hide
 	 ** jQPad.loading( [true || false] )
@@ -493,7 +460,7 @@ jQPad.extend({
 		type = data.type ? data.type : "GET",
 		transition = (data.transition) ? data.transition : "slideLeft",
 		override = (data.overrideInsertion) ? data.overrideInsertion : false,
-		originates = (data.originates);
+		originates = (data.originates) ? data.originates : window;
 
 		if( data.url ) {
 			$.ajax({
@@ -523,15 +490,6 @@ jQPad.extend({
 	},
 	
 	/**** DOM Manipulation ****/
-	
-	/** Refresh -- Refresh/update the functions
-	 ** jQPad.refresh() -- Nope, you leave this alone.
-	 ** return: null
-	 **/
-	refresh: function() {
-		
-	},
-
 	
 	/** Resize the body
 	 ** jQPad.resizeBody()
@@ -575,7 +533,11 @@ jQPad.extend({
 		//The content to be inserted after the animation
 		content = content ? content : "";
 		
-		placeholder.after("<div class=\"content-main\">" + content + "</div>");
+		placeholder.find(".content-main").each(function() {
+			$(this).data("level", $(this).index());
+		});
+		
+		placeholder.find(".content-main:last").after("<div class=\"content-main\" data-level=\"" + (placeholder.find(".content-main").length + 1) + "\">" + content + "</div>");
 	},
 	
 	/** Browser -- Returns the type of mobile browser
@@ -679,11 +641,18 @@ jQPad.extend({
 		},
 		
 		/** Location.get -- returns the current location hash
-		 ** jQPad.location.get();
+		 ** jQPad.location.get([bool]);
 		 ** returns: window.location.hash
 		 **/		
-		get: function() {
-			return window.location.hash;
+		get: function(bool) {
+			var location = window.location.hash;
+			
+			//If url is just wanted
+			if(bool) {
+				location = location.replace("#", "");
+			}
+			
+			return location;
 		}
 	},
 	
@@ -1117,7 +1086,7 @@ jQPad.extend({
 
 $(document).ready( function(){
 	
-	console.log(jQPad);
+	//console.log(jQPad);
 	
 	//Our onload function
 	jQPad.onload();
