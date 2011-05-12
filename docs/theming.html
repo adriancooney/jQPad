@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQPad Theming Documentation</title>
+        <style type="text/css">
+        h1 {
+            font-family: sans-serif;
+            margin: 3px;
+            text-align: center;
+        }
+        table {
+            border: 1px solid rgba(0,0,0,0.1);
+            margin: 5px auto;
+        }
+        
+        table tr td {
+            margin: 0;
+            border-right: 1px dotted rgba(0,0,0,0.2);
+        }
+        
+        table tr:first-child td {
+            border: none;
+        }
+        
+        table tr td:last-child {
+            border: none;
+        }
+        
+        table tr td h4 {
+            font-family: sans-serif;
+            background-color:rgba(0,0,0,0.05);
+            margin: 1px;
+            padding: 4px;
+            text-align: center;
+            border-top: 1px dotted rgba(0,0,0,0.2);
+            border-bottom: 1px dotted rgba(0,0,0,0.2);
+            width: inherit;
+            text-shadow: 0 1px 0 #fff;
+        }
+        
+        table tr:first-child td h4 {
+            border: none;
+        }
+        
+        table tr td p {
+            padding: 0 4px;
+        }
+        
+        table tr td:nth-child(1) p {
+            margin: 2px 4px;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+        
+        table tr td:nth-child(2) p {
+            font-family: Georgia;
+            color: rgba(0,0,0,0.7);
+        }
+        
+        table tr td:nth-child(3) p {
+            font-family: monospace;
+            font-size: 120%;
+        }
+        
+        </style>
+    </head>
+    <body>
+        <h1>jQPad's Theming Reference</h1>
+        <table>
+            <tr>
+                <td><h4>Element</h4></td>
+                <td><h4>Description</h4></td>
+                <td><h4>Class</h4></td>
+            </tr>
+            
+            <tr><td colspan="3"><h4>Toolbar</h4></td></tr>
+            <tr>
+                <td><p>Toolbar</p></td>
+                <td><p>The toolbar. This styles <i>both</i> sides (DIV tag).</p></td>
+                <td><p>.toolbar</p></td>
+            </tr>
+            <tr>
+                <td><p>Toolbar Heading/text</p></td>
+                <td><p>The toolbars text (H1 tag). This styles <i>both</i> sides.</p></td>
+                <td><p>.toolbar h1</p></td>
+            </tr>
+            <tr>
+                <td><p>Toolbar anchor (link)</p></td>
+                <td><p>The toolbars anchor (link)(A tag). This applies to left side only.</p></td>
+                <td><p>.toolbar h1 a</p></td>
+            </tr>
+            
+            <tr><td colspan="3"><h4>Navigation</h4></td></tr>
+            <tr>
+                <td><p>Container</p></td>
+                <td><p>The navigations actual container (DIV tag).</p></td>
+                <td><p>.content-left</p></td>
+            </tr>
+            <tr>
+                <td><p>List Item wrapper</p></td>
+                <td><p>The list items container, an unordered list (UL tag).</p></td>
+                <td><p>.nav</p></td>
+            </tr>
+            <tr>
+                <td><p>Nav Items</p></td>
+                <td><p>The navigations list items (LI tag).</p></td>
+                <td><p>.nav li</p></td>
+            </tr>
+            <tr>
+                <td><p>Nav Item's icon/image</p></td>
+                <td><p>The navigations list items icon or image (H2 tag).</p></td>
+                <td><p>.nav li img</p></td>
+            </tr>
+            <tr>
+                <td><p>Nav Item's text</p></td>
+                <td><p>The navigations list items text (H2 tag).</p></td>
+                <td><p>.nav li h2</p></td>
+            </tr>
+            <tr>
+                <td><p>Nav Item's anchor (link)</p></td>
+                <td><p>The navigations list items anchor (A tag).</p></td>
+                <td><p>.nav li h2 a</p></td>
+            </tr>
+            
+            <tr><td colspan="3"><h4>Content</h4></td></tr>
+            <tr>
+                <td><p>Nav Item's anchor (link)</p></td>
+                <td><p>The navigations list items anchor (A tag).</p></td>
+                <td><p>.nav li h2 a</p></td>
+            </tr>
+            
+            <tr><td colspan="3"><h4>Indiviual Components</h4></td></tr>
+            <tr>
+                <td><p></p></td>
+                <td><p>The navigations list items anchor (A tag).</p></td>
+                <td><p>.nav li h2 a</p></td>
+            </tr>
+            
+            <tr><td colspan="3"><h4>Miscellaneous</h4></td></tr>
+            <tr>
+                <td><p>Loader</p></td>
+                <td><p>The loader that appears during AJAX calls.</p></td>
+                <td><p>.loading</p></td>
+            </tr>
+        </table>
+    </body>
+</html>

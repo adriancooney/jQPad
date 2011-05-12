@@ -58,7 +58,7 @@ jQPad.extend({
 		/** Our main event, a click on the <a> or link
 		 ** Set up a switch, do what it wants us to do
 		 ** Types:
-		 ** 	data-target
+		 ** 	data-action
 		 ** 	data-query
 		 **  	href
 		 **/
