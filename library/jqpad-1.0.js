@@ -1,3 +1,16 @@
+/**
+ ** jQPad iPad web framework
+ ** http://github.com/AdrianCooney/jQPad
+ ** Copyright 2011, Adrian Cooney
+ **
+ ** Includes iScroll
+ ** http://cubiq.org/iscroll
+ ** Copyright 2011, Matteo Spinelli
+ ** Released under the MIT, BSD, and GPL Licenses.
+ **
+ ** Date: Thu May 12 15:04:36 2011 -0400
+ **/
+
 var jQ = jQPad = {};
 jQPad.errorLog = [];
 jQPad.events = {
@@ -5,8 +18,6 @@ jQPad.events = {
 };
 jQPad.pluginsLoaded = false;
 jQPad.store = {};
-jQPad.transitions = ['slideUp', 'slideDown', 'flip', 'fadeOut', 'fadeIn'];
-jQPad.lastTransition = [];
 
 
 /** Extend -- Extend the jQPad (or other) object
@@ -372,8 +383,6 @@ jQPad.extend({
 		function logChange(log) {
 			jQPad.history.log.hashchange.push(log);
 			$(window).trigger("hashchange");
-			
-			if(log.split("/").length > 1) jQPad.history.log.position = log.split("/").length-1;
 		}
 	},
 
@@ -449,6 +458,7 @@ jQPad.extend({
 	 **/
 	fetch: function(data, callback, position) {
 		//Set defaults if empty
+		//Ugh, wall of variables
 		var url = !data.isElsewhere ? "content/" + data.url : data.url,
 		insertInto = !data.insertInto ? ".content-right .content-main" : data.insertInto,
 		query = data.data ? data.data : "",
@@ -462,6 +472,7 @@ jQPad.extend({
 			
 			console.log(jQPad.history.log.position);
 			
+			//Push to our request history
 			jQPad.history.log.requests.push(url);
 			
 			if( callback ) { 
@@ -469,6 +480,7 @@ jQPad.extend({
 				//Cheeky.
 				callback.call(this, data) 
 			} else {
+				//TODO: Add positions
 				if(jQPad.history.log.position > 0) {
 					jQPad.animations.slideLeft(data);
 				} else {
@@ -477,22 +489,28 @@ jQPad.extend({
 			}	
 		};
 		
+		//The most basic of parameters,
+		//Bud if you don't have this, you ain't goin' no-where
 		if( data.url ) {
 			
+			//The actual AJAX call
 			$.ajax({
 				url: url,
 				data: query,
-				dataType: dataType,
+				dataType: dataType, 
 				type: type,
 				success: onFetchSuccess,
 				error: function(obj, status, text) {
-					jQPad.error("Function: fetch() -- " + status + " -- " + text);
+					//:'(
+					jQPad.error("Function: fetch() -- " + status + " | " + text + " -- Trying to retrive: " + url);
 				}
 			});
 			
 		} else {
+			//Derp
 			jQPad.error("Function: fetch() -- Forgot the URL");
 		}
+		
 		return this;
 	},
 	
@@ -1010,7 +1028,8 @@ jQPad.extend({
 			//0 = ground level,
 			//1 = 1st level
 			//2 = 2nd level etc.
-			position: 0
+			position: 0,
+			lastTransition: ""
 		},
 		
 		/** Start Logging -- Start logging history
@@ -1064,44 +1083,51 @@ jQPad.extend({
 	 ** Methods: 
 	 **/
 	animations: {
+		store: {
+			transitions: ['slideUp', 'slideDown', 'flip', 'fadeOut', 'fadeIn']
+		},
+		
 		flip: function() {
 			
 		},
 		
-		expand: function() {
+		scale: function() {
 			
 		},
 		
 		fade: function() {
 			
 		},
-		
-		slideDown: function(duration, goTo) {
+
+		slideX: function() {
+			this.slideLeft = function(data) {
+				var placeholder = $(".content-right .scroll-wrapper"),
+				//The element to move
+				toMove = data.elem ? data.elem : (placeholder.length > 1) ? placeholder.eq(placeholder.length-1) : placeholder,
+				//Duration or speed of the animation
+				speed = data.speed ? data.speed : 450,
+				//The content to be inserted after the animation
+				content = data.content ? data.content : "",
+				callback = data.callback ? data.callback : function() {},
+				dims = new jQPad.dimensions();
 			
+				jQPad.createNewPage(content);
+			
+				toMove.animate({ marginLeft: (dims.rightColumn*-1)});
+			};
+			
+			this.slideRight = function() {
+			};
 		},
 		
-		slideUp: function() {
+		slideY: function() {
+			this.slideUp = function() {
+				
+			};
 			
-		},
-		
-		slideLeft: function(data) {
-			var placeholder = $(".content-right .scroll-wrapper"),
-			//The element to move
-			toMove = data.elem ? data.elem : (placeholder.length > 1) ? placeholder.eq(placeholder.length-1) : placeholder,
-			//Duration or speed of the animation
-			speed = data.speed ? data.speed : 450,
-			//The content to be inserted after the animation
-			content = data.content ? data.content : "",
-			callback = data.callback ? data.callback : function() {},
-			dims = new jQPad.dimensions();
-			
-			jQPad.createNewPage(content);
-			
-			toMove.animate({ marginLeft: (dims.rightColumn*-1)});
-		},
-		
-		slideRight: function(data) {
-			
+			this.slideDown = function() {
+				
+			};
 		}
 		
 	},
