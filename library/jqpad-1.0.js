@@ -480,9 +480,9 @@ jQPad.extend({
 				//Cheeky.
 				callback.call(this, data) 
 			} else {
-				//TODO: Add positions
+				//TODO: Add position
 				if(jQPad.history.log.position > 0) {
-					jQPad.animations.slideLeft(data);
+					jQPad.animations.slideX.slideLeft(data);
 				} else {
 					$(".content-right .content-main:eq(0)").empty().append(data);
 				}
@@ -501,7 +501,7 @@ jQPad.extend({
 				type: type,
 				success: onFetchSuccess,
 				error: function(obj, status, text) {
-					//:'(
+					// :'(
 					jQPad.error("Function: fetch() -- " + status + " | " + text + " -- Trying to retrive: " + url);
 				}
 			});
@@ -588,6 +588,7 @@ jQPad.extend({
 	 ** returns: string["ipad" || "ipod" || "iphone" || "android"]
 	 **/
 	browser: function() {
+		//Simple regex
 		var regex = {
 			android: /Android/i, 
 			iphone: /iPhone/i, 
@@ -595,6 +596,7 @@ jQPad.extend({
 			ipad: /iPad/i 
 		};
 		
+		//Match the browser string to the regex
 		for(var i in regex) {
 			if(navigator.userAgent.match(regex[i])) return i;
 		}
@@ -886,6 +888,7 @@ jQPad.extend({
 		},
 
 		/** Select -- Builds an object of the database, or table
+		 ** TODO: Fix the duplicate code
 		 ** jQPad.db.select([table Name])
 		 ** returns: The built store
 		 **/
@@ -1084,7 +1087,10 @@ jQPad.extend({
 	 **/
 	animations: {
 		store: {
-			transitions: ['slideUp', 'slideDown', 'flip', 'fadeOut', 'fadeIn']
+			transitions: ['slideX', 'slideY', 'slideLeft', 'slideRight', 'slideUp', 'slideDown', 'flip', 'fadeOut', 'fadeIn'],
+			types: ['flip', 'scale', 'fade', 'slide'],
+			defaultDuration: 450,
+			defaultTransition: 'slideX'
 		},
 		
 		flip: function() {
@@ -1099,34 +1105,39 @@ jQPad.extend({
 			
 		},
 
-		slideX: function() {
-			this.slideLeft = function(data) {
-				var placeholder = $(".content-right .scroll-wrapper"),
-				//The element to move
-				toMove = data.elem ? data.elem : (placeholder.length > 1) ? placeholder.eq(placeholder.length-1) : placeholder,
-				//Duration or speed of the animation
-				speed = data.speed ? data.speed : 450,
-				//The content to be inserted after the animation
-				content = data.content ? data.content : "",
-				callback = data.callback ? data.callback : function() {},
-				dims = new jQPad.dimensions();
+		slide: function(type, content, duration, callback) {
+			//Set our variables, really all self-explanatory 
+			var duration = duration ? duration : jQPad.animations.defaultDuration,
+			placeholder = $(".content-right .scroll-wrapper"),
+			contentMain = placeholder.find(".content-main"),
+			elem = contentMain.eq(contentMain.length-1),
+			content = content ? content : "",
+			callback = callback ? callback : function() {},
+			dims = new jQPad.dimensions();
 			
-				jQPad.createNewPage(content);
-			
-				toMove.animate({ marginLeft: (dims.rightColumn*-1)});
+			//Slide along the X axis (horizontally)
+			this.slideX = {
+				slideLeft: function(data) {
+					//Create the new page
+					jQPad.createNewPage(content);
+					//Slide the old page backwards
+					elem.animate({ marginLeft: (dims.rightColumn*-1)}, callback);
+					//TODO: Update the position
+				},
+				
+				slideRight: function() {
+				}
 			};
-			
-			this.slideRight = function() {
-			};
-		},
 		
-		slideY: function() {
-			this.slideUp = function() {
+			//Slide along the Y axis (vertically)
+			this.slideY = {
+				slideUp: function() {
 				
-			};
+				},
 			
-			this.slideDown = function() {
+				slideDown: function() {
 				
+				}
 			};
 		}
 		
