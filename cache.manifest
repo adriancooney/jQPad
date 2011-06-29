@@ -1,8 +1,8 @@
-#Version 1 -- jQPad
+#Version 2 -- jQPad
 CACHE MANIFEST
 index.html
-scripts/jqpad.iscroll.js
-scripts/jqpad.jquery.js
-scripts/jquery.js
+library/jqpad-2.0.js
+library/jquery-1.6.1.min.js
+library/iscroll-3.7.1.js
 themes/global.css
 themes/default/style.css
