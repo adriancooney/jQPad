@@ -1,4 +1,5 @@
 /**
+ ** 
  ** jQPad iPad web framework
  ** http://github.com/AdrianCooney/jQPad
  ** Copyright 2011, Adrian Cooney
@@ -8,7 +9,7 @@
  ** Copyright 2011, Matteo Spinelli
  ** Released under the MIT, BSD, and GPL Licenses.
  **
- ** Date: Thu May 12 15:04:36 2011 -0400
+ ** Date: 15/5/11
  **/
 
 var jQ = jQPad = {};
@@ -599,6 +600,7 @@ jQPad.extend({
 		//Match the browser string to the regex
 		for(var i in regex) {
 			if(navigator.userAgent.match(regex[i])) return i;
+			else return "unknown";
 		}
 	},
 
@@ -607,7 +609,7 @@ jQPad.extend({
 	 ** returns: object (below, basically)
 	 **/
 	dimensions: function() {
-
+		//Cache the elements
  		var $window = $(window),
  		$document = $(document),
 
@@ -747,13 +749,15 @@ jQPad.extend({
 		 ** returns: jQPad
 		 **/
 		addButton: function(data) {
+			//Fix the conditions
 			var side = data.side ? data.side : "right",
-			float = data.float ? data.float : "right",
+			alignment = data.float ? data.float : "right",
 			title = data.title ? data.title : "Submit",
-			button = data.custom ? data.custom : $("<button class='.button ." + float + "'>" + title + "</button>"),
+			button = data.custom ? data.custom : $("<button class='button " + alignment + "'>" + title + "</button>"),
 			
-			$toolbar = $("." + float);
-			
+			//Get the side;
+			$toolbar = $(".content-" + side + " .toolbar");
+			//Aaaaand append the button
 			button.appendTo($toolbar);
 		}
 	},
@@ -1087,7 +1091,7 @@ jQPad.extend({
 	 **/
 	animations: {
 		store: {
-			transitions: ['slideX', 'slideY', 'slideLeft', 'slideRight', 'slideUp', 'slideDown', 'flip', 'fadeOut', 'fadeIn'],
+			transitions: ['slideLeft', 'slideRight', 'slideTop', 'slideBottom', 'flip', 'fadeOut', 'fadeIn'],
 			types: ['flip', 'scale', 'fade', 'slide'],
 			defaultDuration: 450,
 			defaultTransition: 'slideX'
@@ -1105,67 +1109,152 @@ jQPad.extend({
 			
 		},
 
-		slide: function(type, content, duration, callback) {
-			//Set our variables, really all self-explanatory 
-			var duration = duration ? duration : jQPad.animations.defaultDuration,
-			placeholder = $(".content-right .scroll-wrapper"),
-			contentMain = placeholder.find(".content-main"),
-			elem = contentMain.eq(contentMain.length-1),
-			content = content ? content : "",
-			callback = callback ? callback : function() {},
-			dims = new jQPad.dimensions();
-			
-			//Slide along the X axis (horizontally)
-			this.slideX = {
-				slideLeft: function(data) {
-					//Create the new page
-					jQPad.createNewPage(content);
-					//Slide the old page backwards
-					elem.animate({ marginLeft: (dims.rightColumn*-1)}, callback);
-					//TODO: Update the position
-				},
-				
-				slideRight: function() {
-				}
-			};
-		
-			//Slide along the Y axis (vertically)
-			this.slideY = {
-				slideUp: function() {
-				
-				},
-			
-				slideDown: function() {
-				
-				}
-			};
+		slide: function(type, content, callback) {
+			$(".content-right .content-main").slide(type, content)
 		}
 		
 	},
 	
 });
 
-$(document).ready( function(){
-	
-	//console.log(jQPad);
-	
-	//Our onload function
-	jQPad.onload();
-	
-	//console.log(jQPad.browser());
-	
-	//jQPad.location.change("awesome").location.append("woohoo!");
-	
-	//jQPad.notify({message: "First Notification, baby!", duration: 3000}, function() { alert("You clicked the notification!"); }, function() { alert("The notification is gone!"); }).changeTitle("sub", "hello");
+//Let the magic happen.
+$(document).ready(jQPad.onload);
 
-	//var db = new Q.db({shortName: "cool"});
-	//db.query(db, { query: "CREATE TABLE IF NOT EXISTS boo(id INTEGER);"});
-	//db.query(db, { query: "INSERT INTO boo(id) VALUES(200)"});
-	//db.query(db, { query: "SELECT * FROM boo"}, function(results) { Q.fn.notify(results.rows.item(1)['id']); });
-	//Q.db.fn.delTable(db, "boo");
+/**
+ ** How about, take next page since technically it is a transition,
+ ** and if not let the user override with 'takeNextPage' = false;
+ ** So, the transition, 
+ ** 		get page, 
+ **			Animate 
+ ** 		*sigh*
+ **/
+/**
+ ** jQPad Animations Public jQuery Functions 
+ **
+ ** Slide Animation
+ ** $(element).slide( type ["top", "bottom", "left", "right"],
+ **				 content [string]
+ **				 onStart Function called when animation is started [function],
+ **				 callback [function] )
+ **
+ **/				
+$.fn.slide = function(type, content, onStart, callback) {
+    var that = this,
+    dimensions = {
+        height: that.height(),
+        width: that.width()
+    },
+    
+    cases = {
+        bottom: [dimensions.height, "Top"],
+        top: [dimensions.height*-1, "Top"],
+        left: [dimensions.width*-1, "Left"],
+        right: [dimensions.width, "Left"]
+    },
+    
+    //All it does is slide it's width completely to the left
+    animation = {};
+    
+    animation["margin" + cases[type][1]] = cases[type][0];
+    //Call the animation
+    that.animate(animation, jQPad.animations.store.defaultDuration, callback); 
+};
 
-	//Q.fn.fetch({ url:"/content/default/index.html"}, function(data) { 
-	//	$(".content-right .content-main").html(data); 
-	//});
+
+$.fn.slideLeft = function(content, onStart, callback) {
+	this.slide("left", content, onStart, callback);
+};
+$.fn.slideRight = function(content, onStart, callback) {
+	this.slide("right", content, onStart, callback);
+};
+$.fn.slideTop = function(content, onStart, callback) {
+	this.slide("top", content, onStart, callback);
+};
+$.fn.slideBottom = function(content, onStart, callback) {
+	this.slide("bottom", content, onStart, callback);
+};
+
+
+/**
+ ** Flip animation
+ ** $(element).flip(content [string]
+ **				 onStart Function called when animation is started [function],
+ **				 callback [function] )
+ **
+ **/
+$.fn.flip = function(content, onStart, callback) {
+
+    var that = this,
+    duration = jQPad.animations.store.defaultDuration;
+
+	if(onStart) onStart.call();
+    
+	//Add the styles
+    $("head").append("<style type=\"text/css\">" +
+      ".back {" +
+        "z-index: 2;" +
+        "-webkit-transform: rotateY(180deg);" +
+        "position: absolute;" +
+		"width: inherit; height: inherit" +
+      "}" +
+      ".front {" +
+        "z-index: 3;" +
+        "position: absolute;" +
+		"width: inherit; height: inherit" +
+      "}" +
+      ".flip {" +
+        "-webkit-transform: rotateY(180deg);" +
+        "-webkit-transition: -webkit-transform " + duration + "ms;" +
+        "-webkit-transform-style: preserve-3d;" +
+      "}</style>");
+    
+    //First wrap the container
+    that.wrap("<div class=\"flip-animation-container\" />");
+    //Then change its class
+    that.addClass("front")
+    //Then insert the content after
+    .after("<div class=\"back\">" + content + "</div>");
+    
+    var mom = that.parent(), //Parent
+    $front = mom.find(".front"), //Front
+    $back = mom.find(".back"); //Back
+    
+    mom.css({
+        height: that.parent().height(),
+        width: that.parent().width()
+    }).addClass("flip");
+    
+    setTimeout(function() {
+        $front.css({
+            "z-index" : 1
+        });
+    }, duration/2);
+
+	setTimeout(callback, duration);
+    
+};
+
+$.fn.unflip = function() {
+	var $mom = this.parent();
+	this.appendTo(this.parent().parent());
+	this.removeClass("flip").addClass("flip");
+	$mom.remove();
+};
+
+/**
+ ** Cube animation
+ ** $(element).flip(content [string]
+ **				 onStart Function called when animation is started [function],
+ **				 callback [function] )
+ **
+ **/
+$.fn.cube = function(content, onStart, callback) {
+
+    var that = this,
+    duration = jQPad.animations.store.defaultDuration;
+
+	if(onStart) onStart.call();
 	
-});
+	
+	
+};

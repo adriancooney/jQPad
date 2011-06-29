@@ -1,0 +1,31 @@
+
+/*
+	Flip Transition
+*/
+.flip-back {
+	z-index: 2;
+	-webkit-transform: rotateY(180deg);
+	position: absolute;
+	width: inherit; 
+	height: inherit;
+}
+
+.flip-front {
+	z-index: 3;
+	position: absolute;
+	width: inherit; 
+	height: inherit;
+}
+
+.flip {
+	-webkit-transform: rotateY(180deg);
+	-webkit-transition: -webkit-transform ms;
+	-webkit-transform-style: preserve-3d;
+}
+
+/*
+	Cube Transition
+*/
+.cube-front, .cube-side {
+	display: inline;
+}

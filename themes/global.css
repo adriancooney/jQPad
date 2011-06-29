@@ -1,9 +1,13 @@
+@import url(../library/jqpad.transitions.css);
+
 * {
 	outline: none;
 	list-style: none;
 	text-decoration: none;
 	margin: 0;
 	padding: 0;
+	
+	-webkit-touch-callout: none;
 	}
 
 /***************** Toolbar *****************/
@@ -12,7 +16,13 @@
 	z-index: 5;
 	}
 
-	
+.toolbar .left {
+	float: left;
+}
+
+.toolbar .right {
+	float: right;
+}
 
 
 /***************** Both sides *****************/	
