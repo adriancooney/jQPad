@@ -10,6 +10,12 @@
  ** Released under the MIT, BSD, and GPL Licenses.
  **
  ** Date: 15/5/11
+ ** 
+ ** TODO:
+ ** -Implement functional backbutton
+ ** -Finish Pages API
+ ** -Finish animations
+ ** 
  **/
 
 var jQ = jQPad = {};
@@ -55,7 +61,7 @@ jQPad.extend({
 		//Get the themes 'theme.js' if it exists
 		jQPad.getThemeJS();
 		
-		jQPad.createNewPage("Hello World!");
+		jQPad.pages.createNewPage("Hello World!");
 		
 		//Handle direct linking to the site
 		if(jQPad.location.get(true) == "") {
@@ -515,8 +521,6 @@ jQPad.extend({
 		return this;
 	},
 	
-	/**** DOM Manipulation ****/
-	
 	/** Resize the body
 	 ** jQPad.resizeBody()
 	 ** returns: jQPad
@@ -548,27 +552,7 @@ jQPad.extend({
 		
 		return this;
 	},	
-	
-	/** Create a new page -- inserts a new page after the current one
-	 ** jQPad.createNewPage( )
-	 ** returns: jQPad
-	 **/
-	createNewPage: function(content) {
-		//Set default the placeholder
-		var placeholder = $(".content-right .scroll-wrapper"),
-		//The content to be inserted after the animation
-		content = content ? content : "";
 		
-		// placeholder.find(".content-main").each(function() {
-		// 	$(this).data("level", $(this).index());
-		// });
-		
-		placeholder.find(".content-main:last").after("<div class=\"content-main\" data-level=\"" + (placeholder.find(".content-main").length + 1) + "\">" + content + "</div>");
-		
-		return this;
-	},
-	
-	
 	/** Append Content -- Appends content to the current page
 	 ** jQPad.appendContent( content[string] )
 	 ** returns: jQPad
@@ -762,7 +746,40 @@ jQPad.extend({
 		}
 	},
 
-	/** Database -- WebSQL or local databases API
+	/** Pages -- Pages API
+	 ** Methods: create, delete
+	 **/
+	pages: {	
+	
+		/** Create a new page -- inserts a new page after the current one
+		 ** jQPad.createNewPage( )
+		 ** returns: jQPad
+		 **/
+		create: function(content) {
+			//Set default the placeholder
+			var placeholder = $(".content-right .scroll-wrapper"),
+			//The content to be inserted after the animation
+			content = content ? content : "";
+		
+			// placeholder.find(".content-main").each(function() {
+			// 	$(this).data("level", $(this).index());
+			// });
+		
+			placeholder.find(".content-main:last").after("<div class=\"content-main\" data-level=\"" + (placeholder.find(".content-main").length + 1) + "\">" + content + "</div>");
+		
+			return this;
+		},	
+	
+		/** Create a new page -- inserts a new page after the current one
+		 ** jQPad.createNewPage( )
+		 ** returns: jQPad
+		 **/
+		delete:function() {
+			
+		}
+	},
+	
+	/** Database -- WebSQL/local databases API
 	 ** Methods: checkDB, createDatabase, query, add, addTable, delTable, select
 	 **/
 	db: {
@@ -874,7 +891,7 @@ jQPad.extend({
 		 ** jQPad.db.add( table, object[ColumnName: value] )
 		 ** returns: jQPad Database API
 		 **/
-		add: function(table, data) {	
+		add: function(table, data) {
 			//Compile SQL query
 			var queryNames = [],
 			queryData = [];
