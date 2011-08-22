@@ -61,7 +61,7 @@ jQPad.extend({
 		//Get the themes 'theme.js' if it exists
 		jQPad.getThemeJS();
 		
-		jQPad.pages.createNewPage("Hello World!");
+		jQPad.pages.create("Hello World!");
 		
 		//Handle direct linking to the site
 		if(jQPad.location.get(true) == "") {
@@ -752,7 +752,7 @@ jQPad.extend({
 	pages: {	
 	
 		/** Create a new page -- inserts a new page after the current one
-		 ** jQPad.createNewPage( )
+		 ** jQPad.pages.create( )
 		 ** returns: jQPad
 		 **/
 		create: function(content) {
@@ -774,9 +774,9 @@ jQPad.extend({
 		 ** jQPad.createNewPage( )
 		 ** returns: jQPad
 		 **/
-		delete:function() {
-			
-		}
+		// delete: function() {
+		// 	
+		// }
 	},
 	
 	/** Database -- WebSQL/local databases API
@@ -1206,35 +1206,35 @@ $.fn.flip = function(content, onStart, callback) {
 
 	if(onStart) onStart.call();
     
-	//Add the styles
-    $("head").append("<style type=\"text/css\">" +
-      ".back {" +
-        "z-index: 2;" +
-        "-webkit-transform: rotateY(180deg);" +
-        "position: absolute;" +
-		"width: inherit; height: inherit" +
-      "}" +
-      ".front {" +
-        "z-index: 3;" +
-        "position: absolute;" +
-		"width: inherit; height: inherit" +
-      "}" +
-      ".flip {" +
-        "-webkit-transform: rotateY(180deg);" +
-        "-webkit-transition: -webkit-transform " + duration + "ms;" +
-        "-webkit-transform-style: preserve-3d;" +
-      "}</style>");
+	// //Add the styles
+	//     $("head").append("<style type=\"text/css\">" +
+	//       ".back {" +
+	//         "z-index: 2;" +
+	//         "-webkit-transform: rotateY(180deg);" +
+	//         "position: absolute;" +
+	// 	"width: inherit; height: inherit" +
+	//       "}" +
+	//       ".front {" +
+	//         "z-index: 3;" +
+	//         "position: absolute;" +
+	// 	"width: inherit; height: inherit" +
+	//       "}" +
+	//       ".flip {" +
+	//         "-webkit-transform: rotateY(180deg);" +
+	//         "-webkit-transition: -webkit-transform " + duration + "ms;" +
+	//         "-webkit-transform-style: preserve-3d;" +
+	//       "}</style>");
     
     //First wrap the container
-    that.wrap("<div class=\"flip-animation-container\" />");
+    that.wrap("<div class=\"flip-animation-container\" />")
     //Then change its class
-    that.addClass("front")
+    .addClass("flip-front-face")
     //Then insert the content after
-    .after("<div class=\"back\">" + content + "</div>");
+    .after("<div class=\"flip-back-face\">" + content + "</div>");
     
     var mom = that.parent(), //Parent
-    $front = mom.find(".front"), //Front
-    $back = mom.find(".back"); //Back
+    $front = mom.find(".flip-front-face"), //Front
+    $back = mom.find(".flip-back-face"); //Back
     
     mom.css({
         height: that.parent().height(),
@@ -1253,8 +1253,8 @@ $.fn.flip = function(content, onStart, callback) {
 
 $.fn.unflip = function() {
 	var $mom = this.parent();
-	this.appendTo(this.parent().parent());
-	this.removeClass("flip").addClass("flip");
+	this.appendTo(this.parent().parent())
+	.removeClass("flip").addClass("flip");
 	$mom.remove();
 };
 

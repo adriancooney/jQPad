@@ -2,7 +2,7 @@
 /*
 	Flip Transition
 */
-.flip-back {
+.flip-back-face {
 	z-index: 2;
 	-webkit-transform: rotateY(180deg);
 	position: absolute;
@@ -10,7 +10,7 @@
 	height: inherit;
 }
 
-.flip-front {
+.flip-front-face {
 	z-index: 3;
 	position: absolute;
 	width: inherit; 
