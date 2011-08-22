@@ -127,27 +127,17 @@
 	margin-bottom: 15px;
 	margin-top: 15px;
 	}
-
-.list .rounded-list li {
-	height: 45px;
-	}
 	
 .list .rounded-list li:last-child {
 	border-bottom: hidden;
 	}
 	
-.list .rounded-list li h3, .list .single-item li h3 {
-	padding-top: 11px;
-	margin-left: 15px;
-	}
-	
 .list .rounded-list li span, .list .single-item span {
 	float: right;
-	margin-top: -19px;
+	margin-top: -26px;
 	padding-right: 30px;
 	}
 	
-/* Tried to use same selectors from jQTouch. */
 
 .edgetoedge li {
 	width: inherit;
@@ -226,13 +216,18 @@
 	text-indent: -9999px;
 	}
 
-
-/***************** Bugs *****************/
 .space {
 	width: inherit;
 	height: 60px;
 	background: transparent;
 	}
+	
+.copyright {
+	text-align: center;
+	font-size: 14px;
+	color: #333;
+	text-shadow: 0 1px 0 #777;
+}
 	
 /***************** Inputs *****************/
 

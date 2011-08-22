@@ -430,6 +430,9 @@ jQPad.extend({
 		} else {
 			//Finally, an AJAX call!
 			jQPad.fetch({url: dataHref, data: dataQuery, originates: $(this)});
+			
+			//Change the right side title
+			jQPad.toolbar.changeMainTitle($this.data("title") || $this.text());
 		}
 	},
 	
@@ -481,6 +484,10 @@ jQPad.extend({
 			
 			//Push to our request history
 			jQPad.history.log.requests.push(url);
+			
+			//Check if it orginates from main nav
+			if(originates.parents(".nav")) var fromSiderbar = true;
+			else var fromSidebar = false;
 			
 			if( callback ) { 
 				//Someone wants to override the animation
@@ -699,11 +706,11 @@ jQPad.extend({
 				switch(type) {
 					case "main":
 						//Change main Title
-						jQPad.changeMainTitle(string);
+						jQPad.toolbar.changeMainTitle(string);
 						break;
 					case "sub":
 						//Change sub title
-						jQPad.changeMainTitle(string);
+						jQPad.toolbar.changeMainTitle(string);
 						break;
 					}
 			}
@@ -743,6 +750,26 @@ jQPad.extend({
 			$toolbar = $(".content-" + side + " .toolbar");
 			//Aaaaand append the button
 			button.appendTo($toolbar);
+		},
+
+		/** Add a back button -- I put this into its own function because of its frequent use
+		 ** jQPad.toolbar.addBackButton( )
+		 ** returns: jQPad
+		 **/
+		addBackButton: function() {
+			jQPad.toolbar.addButton({
+				side: "right",
+				float: "left",
+				custom: "<button class=\"back-button\">Back</button>"
+			});
+		},
+
+		/** Remove a back button -- I put this into its own function because of its frequent use
+		 ** jQPad.toolbar.removeBackButton( )
+		 ** returns: jQPad
+		 **/
+		removeBackButton: function() {
+			if($(".back-button")) $(".back-button").remove();
 		}
 	},
 
@@ -768,15 +795,7 @@ jQPad.extend({
 			placeholder.find(".content-main:last").after("<div class=\"content-main\" data-level=\"" + (placeholder.find(".content-main").length + 1) + "\">" + content + "</div>");
 		
 			return this;
-		},	
-	
-		/** Create a new page -- inserts a new page after the current one
-		 ** jQPad.createNewPage( )
-		 ** returns: jQPad
-		 **/
-		// delete: function() {
-		// 	
-		// }
+		}
 	},
 	
 	/** Database -- WebSQL/local databases API
@@ -1053,7 +1072,8 @@ jQPad.extend({
 			//1 = 1st level
 			//2 = 2nd level etc.
 			position: 0,
-			lastTransition: ""
+			lastTransition: "",
+			states: []
 		},
 		
 		/** Start Logging -- Start logging history
@@ -1082,12 +1102,22 @@ jQPad.extend({
 			return jQPad;
 		},
 		
+		/** Push state -- push a state to the global history object
+		 ** jQPad.history.pushState( data[obj], name[string], url[string] )
+		 ** returns: 
+		 **/
+		pushState: function(data, name, location) {
+			//Push it to our log
+			jQPad.history.log.states.push({ data: data, name: name, location: location });
+			history.pushState(data, name, location);
+		},
+		
 		/** Print Log -- Prints the history log
 		 ** jQPad.history.printLog( )
 		 ** returns: log
 		 **/
 		printLog: function() {
-			console.log(jQPad.history.log);
+			console.log("jQPad's History Log", jQPad.history.log);
 			return jQPad.history.log;
 		},
 
