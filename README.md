@@ -1,6 +1,8 @@
 #jQPad#
 ####By Adrian Cooney####
 
+## This project is officially dead. Code is bad, I should feel bad. (I do feel bad)
+
 jQPad is an iPad web development framework by Adrian Cooney. jQPad follows the existing interface patterns of iOS make creating complex AJAX powered website in minutes (although effort is encouraged).
 
 #FAQ#
